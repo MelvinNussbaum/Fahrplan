@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    <h1>Result</h1>
+    <thead>
+        <tr>
+            <th>Name:</th>
+            <span> | </span>
+            <th>To:</th>
+            <br>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:if="${stationboardResponse.stationboard.isEmpty()}">
+            <td colspan="2"> No Routes Available </td>
+        </tr>
+        <tr th:each="route : ${stationboardResponse.getStationboard()}">
+            <td><span th:text="${route.name}"></span></td>
+            <span> | </span>
+            <td><span th:text="${route.to}"></span></td>
+            <br>
+        </tr>
+    </tbody>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Result</h1>
+<thead>
+<tr>
+    <th>From:</th>
+    <span> | </span>
+    <th>To:</th>
+    <span> | </span>
+    <th>Departure:</th>
+    <span> | </span>
+    <th>Platform:</th>
+    <br>
+</tr>
+</thead>
+<tbody>
+<tr th:if="${connectionResponse.getConnections().isEmpty()}">
+    <td colspan="2"> No Routes Available</td>
+</tr>
+<tr th:each="route : ${connectionResponse.getConnections()}">
+    <td><span th:text="${route.from.station.name}"></span></td>
+    <span> | </span>
+    <td><span th:text="${route.to.station.name}"></span></td>
+    <span> | </span>
+    <td><span th:text="${route.from.departure}"></span></td>
+    <span> | </span>
+    <td><span th:text="${route.from.platform}"></span></td>
+
+    <br>
+</tr>
+</tbody>
+</body>
+</html>
