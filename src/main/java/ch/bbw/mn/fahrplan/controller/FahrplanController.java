@@ -1,16 +1,13 @@
 package ch.bbw.mn.fahrplan.controller;
 
 import ch.bbw.mn.fahrplan.dao.FahrplanDAO;
-import ch.bbw.mn.fahrplan.model.ConnectionRequest;
-import ch.bbw.mn.fahrplan.model.ConnectionResponse;
-import ch.bbw.mn.fahrplan.model.StationboardRequest;
+import ch.bbw.mn.fahrplan.dao.WeatherDAO;
+import ch.bbw.mn.fahrplan.model.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import ch.bbw.mn.fahrplan.model.StationboardResponse;
 
 @Controller
 public class FahrplanController {
@@ -29,8 +26,11 @@ public class FahrplanController {
 	@PostMapping("/requestStationboard")
 	public String postRequestStationboard(@ModelAttribute("stationboard") StationboardRequest stationboard, Model model) {
 		FahrplanDAO fahrplanDAO = new FahrplanDAO();
+		WeatherDAO weatherDAO = new WeatherDAO();
 		StationboardResponse stationboardResponse = fahrplanDAO.getStationboard(stationboard.getLocation());
+		WeatherResponse weatherResponse = weatherDAO.getWeather(stationboard.getLocation());
 		model.addAttribute("stationboardResponse", stationboardResponse);
+		model.addAttribute("weatherResponse", weatherResponse);
 		return "stationboardResults";
 	}
 	
@@ -43,8 +43,11 @@ public class FahrplanController {
 	@PostMapping("/requestConnection")
 	public String postRequestConnection(@ModelAttribute("connection") ConnectionRequest connection, Model model) {
 		FahrplanDAO fahrplanDAO = new FahrplanDAO();
+		WeatherDAO weatherDAO = new WeatherDAO();
 		ConnectionResponse connectionResponse = fahrplanDAO.getConnection(connection.getFrom(), connection.getTo());
+		WeatherResponse weatherResponse = weatherDAO.getWeather(connection.getTo());
 		model.addAttribute("connectionResponse", connectionResponse);
+		model.addAttribute("weatherResponse", weatherResponse);
 		return "connectionResults";
 	}
 }

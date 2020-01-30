@@ -30,9 +30,10 @@
     <td><span th:text="${route.from.departure}"></span></td>
     <span> | </span>
     <td><span th:text="${route.from.platform}"></span></td>
-
     <br>
 </tr>
+<p>Weather in <span th:text="${connectionResponse.connections.get(0).to.station.name + ': '}"></span><span th:text="${weatherResponse.weather.get(0).description + ', '}"></span><span
+        th:text="${(weatherResponse.main.tempMax - 273.15) + ' °C'}"></span></p>
 </tbody>
 </body>
 </html>
